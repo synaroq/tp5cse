@@ -4,20 +4,20 @@ import java.util.List;
 
 public class Rayon{
     private Produit produit; 
-    private int nb_product_max;
-    private int currentAmountproducts = nb_product_max;
+    private int nbProductMax;
+    private int currentAmountproducts = nbProductMax;
     
-    public Rayon( Produit produit, int nb_product_max) {
+    public Rayon( Produit produit, int nbProductMax) {
         this.produit = produit;
-        this.nb_product_max = nb_product_max;
+        this.nbProductMax = nbProductMax;
     }
 
     public Produit getProduit() {
         return produit;
     }
 
-    public int getNb_product_max() {
-        return nb_product_max;
+    public int getNbProductMax() {
+        return nbProductMax;
     }
 
     public int getCurrentAmountproducts() {
@@ -28,6 +28,6 @@ public class Rayon{
         this.currentAmountproducts = currentAmountproducts;
     }
 
-    
+
 
 }

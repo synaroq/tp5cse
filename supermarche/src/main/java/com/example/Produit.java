@@ -15,4 +15,19 @@ public enum Produit {
     public int getId() {
         return id;
     }
+
+    public String getName() {
+        switch (this) {
+            case SUCRE:
+                return "Sucre";
+            case FARINE:
+                return "Farine";
+            case BEURRE:
+                return "Beurre";
+            case LAIT:
+                return "Lait";
+            default:
+                return "Unknown";
+        }
+    }
 }

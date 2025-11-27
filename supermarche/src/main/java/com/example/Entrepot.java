@@ -23,4 +23,9 @@ public class Entrepot{
         return null; // or throw an exception if preferred
     }
 
+
+    public int getNbProducts() {
+        return availableProducts.size();
+    }
+
 }
