@@ -1,6 +1,5 @@
 package com.example;
 
-import java.util.List;
 
 public class Rayon{
     private Produit produit; 

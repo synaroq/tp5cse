@@ -8,6 +8,10 @@ public class EmpRayon extends Thread {
     private List<Produit> carriedProducts = new ArrayList<>();
     private List<Rayon> rayons;
 
+    public EmpRayon(List<Rayon> rayons) {
+        this.rayons = rayons;
+    }
+
     public void addProduct(Produit produit) {
         if (!canCarry(produit)) {
             throw new IllegalArgumentException("Employee cannot carry this product: " + produit.getName());
