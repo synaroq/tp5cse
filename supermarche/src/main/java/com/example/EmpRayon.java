@@ -1,10 +1,12 @@
 package com.example;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class EmpRayon {
+public class EmpRayon extends Thread {
 
-    private List<Produit> carriedProducts;  
+    private List<Produit> carriedProducts = new ArrayList<>();
+    private List<Rayon> rayons;
 
     public void addProduct(Produit produit) {
         if (!canCarry(produit)) {
@@ -25,6 +27,15 @@ public class EmpRayon {
             }
         }
         return count < 5;
+    }
+
+    @Override
+    public void run() {
+        while (!Thread.currentThread().isInterrupted()) {
+        }
+
+
+
     }
 
 

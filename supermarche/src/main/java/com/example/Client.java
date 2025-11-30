@@ -1,11 +1,22 @@
 package com.example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Client extends Thread {
-    private List<Produit> listeCourses;
-    private List<Produit> panier;
+    private List<Produit> listeCourses = new ArrayList<>();
+    private List<Produit> panier = new ArrayList<>();
+    private Entrepot entrepot;
+    private Chariots chariots;
+    private List<Rayon> rayons;
 
+
+    public Client(Entrepot entrepot, List<Rayon> rayons, Chariots chariots) {
+        this.entrepot = entrepot;
+        this.rayons = rayons;
+        this.chariots = chariots;
+        generateListeCourses(entrepot);
+    }
 
    public List<Produit> getListeCourses() {
         return listeCourses;
@@ -35,6 +46,10 @@ public class Client extends Thread {
 
     @Override
     public void run() {
+          // Take a cart
+    // Shop for products
+    // Go to checkout
+    // Return cart
         
     
     }

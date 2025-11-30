@@ -2,10 +2,11 @@ package com.example;
 /*  */
 public class Chariots {
     private int nbChariotsMax;
-    private int currentNbChariots = nbChariotsMax;
+    private int currentNbChariots;
 
     public Chariots(int nbChariots) {
         this.nbChariotsMax = nbChariots;
+        this.currentNbChariots = nbChariots;
     }
 
     public int getNbChariotsMax() {
