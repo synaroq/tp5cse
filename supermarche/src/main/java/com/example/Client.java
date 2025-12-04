@@ -11,12 +11,14 @@ public class Client extends Thread {
     private Entrepot entrepot;
     private Chariots chariots;
     private List<Rayon> rayons;
+    private Tapis tapis;
 
 
-    public Client(Entrepot entrepot, List<Rayon> rayons, Chariots chariots) {
+    public Client(Entrepot entrepot, List<Rayon> rayons, Chariots chariots, Tapis tapis) {
         this.entrepot = entrepot;
         this.rayons = rayons;
         this.chariots = chariots;
+        this.tapis = tapis;
         generateListeCourses(entrepot);
     }
 
@@ -48,6 +50,8 @@ public class Client extends Thread {
         }
     }
 
+    
+
 
     @Override
     public void run() {
@@ -66,15 +70,27 @@ public class Client extends Thread {
                         pickedProduct = rayon.pickProducts(quantity);
                     }
                     acheterProduit(pickedProduct, quantity);
+                    try {
+                        Thread.sleep(300);
+                    } catch (InterruptedException ex) {
+                    }
                     break;
                 }
+
             }
         }
-    // Go to checkout
-        
-
-    // Return cart
+        // Go to checkout and place items on the conveyor belt
+        List<Integer> articlesToDeposit = panier.stream()
+                .map(ProductEnum::getId)
+                .toList();
+        try {
+            tapis.deposerArticles(articlesToDeposit);
+        } catch (InterruptedException ex) {
+        }
+        //TODO synchronize with EmpCaisse to wait until all articles are processed
+        // Return the cart
         chariots.rendreChariot();
+    
         
     
     }

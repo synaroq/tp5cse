@@ -11,6 +11,11 @@ public class EmpCaisse extends Thread {
         while (true) {
             if (tapis.getCurrentAmountproducts()>0){
                 tapis.retirerArticle();
+                try {
+                    Thread.sleep(40);
+                } catch (InterruptedException ex) {
+                }
+               
             }
         }
     }

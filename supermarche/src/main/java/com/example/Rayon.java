@@ -21,7 +21,7 @@ public class Rayon{
      * @param nbproducts
      * @return the remaining products that couldn't fit on the shelf.
      */
-    public int refill(int nbproducts) {
+    public synchronized int refill(int nbproducts) {
        
         int spaceAvailable = nbProductMax - currentAmountproducts;
         if (nbproducts <= spaceAvailable) {

@@ -17,7 +17,7 @@ public class Tapis {
         this.size = 0;
     }
 
-    public synchronized void ajouterArticle(int article) {
+    public synchronized void ajouterArticle(int article)  {
         while (size >= max_articles) {
             try {
                 wait();
@@ -29,6 +29,7 @@ public class Tapis {
         tapis[end] = article;
         end = (end + 1) % max_articles;
         size++;
+        
         notifyAll();
     }
 
@@ -49,9 +50,10 @@ public class Tapis {
         return article;
     }
 
-    public synchronized void deposerArticles(List<Integer> articles) {
+    public synchronized void deposerArticles(List<Integer> articles)  throws InterruptedException {
         for (int article : articles) {
             ajouterArticle(article);
+            Thread.sleep(20);
         }
         ajouterArticle(-1);
         
