@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Client extends Thread {
-    private List<Produit> listeCourses = new ArrayList<>();
-    private List<Produit> panier = new ArrayList<>();
+    private final List<ProduitEnum> listeCourses = new ArrayList<>();
+    private final List<ProduitEnum> panier = new ArrayList<>();
     private Entrepot entrepot;
     private Chariots chariots;
     private List<Rayon> rayons;
@@ -18,7 +18,7 @@ public class Client extends Thread {
         generateListeCourses(entrepot);
     }
 
-   public List<Produit> getListeCourses() {
+   public List<ProduitEnum> getListeCourses() {
         return listeCourses;
     }
 
@@ -27,14 +27,14 @@ public class Client extends Thread {
         int productId = 0;
         for (int i = 0; i < nbProduct; i++) {
             productId = (int)(Math.random() * entrepot.getNbProducts());
-            Produit produit = entrepot.getProductById(productId);
+            ProduitEnum produit = entrepot.getProductById(productId);
 
             listeCourses.add(produit);
         
         }
     }
 
-    private void acheterProduit(Produit produit) {
+    private void acheterProduit(ProduitEnum produit) {
         if (listeCourses.contains(produit)) {
             panier.add(produit);
             listeCourses.remove(produit);

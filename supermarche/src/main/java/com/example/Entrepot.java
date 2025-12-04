@@ -3,19 +3,19 @@ package com.example;
 import java.util.List;
 
 public class Entrepot{
-    private List<Produit> availableProducts;
+    private final List<ProduitEnum> availableProducts;
 
-    public Entrepot(List<Produit> availableProducts) {
+    public Entrepot(List<ProduitEnum> availableProducts) {
         this.availableProducts = availableProducts;
     }
 
 
-    public List<Produit> getAvailableProducts() {
+    public List<ProduitEnum> getAvailableProducts() {
         return availableProducts;
     }
 
-    public Produit getProductById(int id) {
-        for (Produit produit : availableProducts) {
+    public ProduitEnum getProductById(int id) {
+        for (ProduitEnum produit : availableProducts) {
             if (produit.getId() == id) {
                 return produit;
             }

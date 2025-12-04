@@ -5,14 +5,14 @@ import java.util.List;
 
 public class EmpRayon extends Thread {
 
-    private List<Produit> carriedProducts = new ArrayList<>();
+    private List<ProduitEnum> carriedProducts = new ArrayList<>();
     private List<Rayon> rayons;
 
     public EmpRayon(List<Rayon> rayons) {
         this.rayons = rayons;
     }
 
-    public void addProduct(Produit produit) {
+    public void addProduct(ProduitEnum produit) {
         if (!canCarry(produit)) {
             throw new IllegalArgumentException("Employee cannot carry this product: " + produit.getName());
         }
@@ -23,9 +23,9 @@ public class EmpRayon extends Thread {
     /* 
      * Can carry only 5 times the same product
      */
-    private boolean canCarry(Produit produit) {
+    private boolean canCarry(ProduitEnum produit) {
         int count = 0;
-        for (Produit p : carriedProducts) {
+        for (ProduitEnum p : carriedProducts) {
             if (p.getId() == produit.getId()) {
                 count++;
             }
