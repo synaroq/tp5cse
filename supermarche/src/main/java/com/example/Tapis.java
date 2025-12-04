@@ -1,8 +1,10 @@
 package com.example;
 
+import java.util.List;
+
 public class Tapis {
-    private Integer[] tapis;
-    private int max_articles;
+    private final Integer[] tapis;
+    private final int max_articles;
     private int start;
     private int end;
     private int size;
@@ -15,37 +17,44 @@ public class Tapis {
         this.size = 0;
     }
 
-    public void ajouterArticle(int article) {
-        if (size < max_articles) {
-            tapis[end] = article;
-            end = (end + 1) % max_articles;
-            size++;
-        } else {
-            throw new IllegalStateException("Le tapis est plein");
+    public synchronized void ajouterArticle(int article) {
+        while (size >= max_articles) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
         }
+        tapis[end] = article;
+        end = (end + 1) % max_articles;
+        size++;
+        notifyAll();
     }
 
-    public int retirerArticle() {
-        if (size > 0) {
-            int article = tapis[start];
-            tapis[start] = null; // Optional: Clear the reference
-            start = (start + 1) % max_articles;
-            size--;
-            return article;
+    public synchronized int retirerArticle() {
+        while (size == 0) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new IllegalStateException("Thread interrupted");
+            }
         }
-        throw new IllegalStateException("La caisse est vide");
+        int article = tapis[start];
+        tapis[start] = null;
+        start = (start + 1) % max_articles;
+        size--;
+        notifyAll();
+        return article;
     }
 
-    public void deposerArticle() {
-        // Logic to handle client deposit
-        if (!estPlein()) {
-            // Simulate a client depositing an article
-            int article = (int) (Math.random() * 100); // Example: Random article number
+    public synchronized void deposerArticles(List<Integer> articles) {
+        for (int article : articles) {
             ajouterArticle(article);
-            System.out.println("Client a déposé l'article: " + article);
-        } else {
-            System.out.println("Le tapis est plein, le client ne peut pas déposer d'article.");
         }
+        ajouterArticle(-1);
+        
     }
 
     public boolean estPlein() {

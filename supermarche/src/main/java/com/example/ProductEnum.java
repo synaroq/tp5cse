@@ -1,6 +1,6 @@
 package com.example;
 
-public enum ProduitEnum {
+public enum ProductEnum {
     SUCRE(0),
     FARINE(1),
     BEURRE(2),
@@ -8,7 +8,7 @@ public enum ProduitEnum {
 
     private final int id;
 
-    ProduitEnum(int id) {
+    ProductEnum(int id) {
         this.id = id;
     }
 
