@@ -3,10 +3,11 @@ package com.example;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class EmpRayon extends Thread {
 
-    private Map<ProductEnum,Integer> carriedProducts = new HashMap<>();
+    private Map<ProductEnum, Integer> carriedProducts = new HashMap<>();
     private final int MAX_CARRY_PER_PRODUCT = 5;
     private List<Rayon> rayons;
     private final Entrepot entrepot;
@@ -14,70 +15,82 @@ public class EmpRayon extends Thread {
     public EmpRayon(List<Rayon> rayons, Entrepot entrepot) {
         this.rayons = rayons;
         this.entrepot = entrepot;
+        this.setName("Rogée du rayon lait");
     }
 
+    private void log(String message) {
+        Logger.getGlobal().info("[EmpRayon] " + message);
+    }
 
-    /** 
-     * 
-     * Add products to the rayon 
+    /**
+     * Add products to the rayon
      */
-    public void addProductAmountToRayon(Rayon rayon, int amount) {
+    public synchronized void addProductAmountToRayon(Rayon rayon, int amount) {
         ProductEnum produit = rayon.getProduit();
         int currentAmount = carriedProducts.getOrDefault(produit, 0);
-        carriedProducts.put(produit, currentAmount - amount);
-        int remaining = rayon.refill(amount);
-        if (remaining > 0) {
-            carriedProducts.put(produit, carriedProducts.getOrDefault(produit, 0) + remaining);
-        }
 
-    
+        if (!rayon.isFull() && currentAmount > 0) {
+            int toAdd = Math.min(amount, currentAmount);
+            int remaining = rayon.refill(toAdd);
+            int added = toAdd - remaining;
+            carriedProducts.put(produit, currentAmount - added);
+        }
+    }
+
+    public boolean isFull() {
+        for (ProductEnum produit : entrepot.getAvailableProducts()) {
+            if (carriedProducts.getOrDefault(produit, 0) < MAX_CARRY_PER_PRODUCT) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void refillCarryFromEntrepot() {
+        log("Va chercher des produits a l'entrepot");
         for (ProductEnum produit : entrepot.getAvailableProducts()) {
             carriedProducts.put(produit, MAX_CARRY_PER_PRODUCT);
         }
-    } 
+        log("Charge: " + carriedProducts);
+    }
 
     @Override
     public void run() {
+        log("Commence son service");
+
         while (!Thread.currentThread().isInterrupted()) {
-            //refill carried products from entrepot
             try {
                 Thread.sleep(500);
             } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+                break;
             }
-            refillCarryFromEntrepot();
-            //moving to first rayon from entrepot
+
+            if (!isFull()) {
+                refillCarryFromEntrepot();
+            }
+
             try {
                 Thread.sleep(200);
             } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+                break;
             }
-            
+
             for (Rayon rayon : rayons) {
-                
                 ProductEnum produit = rayon.getProduit();
                 int carriedAmount = carriedProducts.getOrDefault(produit, 0);
-                if (carriedAmount > 0) {
+                if (carriedAmount > 0 && !rayon.isFull()) {
                     addProductAmountToRayon(rayon, carriedAmount);
                 }
-                //moving to next rayon
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                    return;
                 }
             }
-            //moving back to entrepot
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException ex) {
-            }
         }
-
-
-
+        log("Termine son service");
     }
-
-
-    
 }

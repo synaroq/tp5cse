@@ -25,4 +25,13 @@ public enum ProductEnum {
             default -> "Unknown";
         };
     }
+
+    public static ProductEnum fromId(int id) {
+        for (ProductEnum p : values()) {
+            if (p.id == id) {
+                return p;
+            }
+        }
+        return null;
+    }
 }

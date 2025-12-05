@@ -1,5 +1,7 @@
 package com.example;
-/*  */
+
+import java.util.logging.Logger;
+
 public class Chariots {
     private int nbChariotsMax;
     private int currentNbChariots;
@@ -7,6 +9,10 @@ public class Chariots {
     public Chariots(int nbChariots) {
         this.nbChariotsMax = nbChariots;
         this.currentNbChariots = nbChariots;
+    }
+
+    private void log(String message) {
+        Logger.getGlobal().info("[Chariots] " + message);
     }
 
     public int getNbChariotsMax() {
@@ -21,18 +27,23 @@ public class Chariots {
         this.currentNbChariots = currentNbChariots;
     }
 
-    public synchronized boolean prendreChariot() {
-        if (currentNbChariots > 0) {
-            currentNbChariots--;
-            return true;
+    public synchronized void prendreChariot(int clientId) {
+        while (currentNbChariots <= 0) {
+            log("Client-" + clientId + " attend un chariot... (0/" + nbChariotsMax + " dispo)");
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
         }
-        return false;
+        currentNbChariots--;
+        log("Client-" + clientId + " prend un chariot (" + currentNbChariots + "/" + nbChariotsMax + " dispo)");
     }
 
-    public synchronized void rendreChariot() {
-        if (currentNbChariots < nbChariotsMax) {
-            currentNbChariots++;
-        }
+    public synchronized void rendreChariot(int clientId) {
+        currentNbChariots++;
+        log("Client-" + clientId + " rend son chariot (" + currentNbChariots + "/" + nbChariotsMax + " dispo)");
+        notifyAll();
     }
-    
 }
