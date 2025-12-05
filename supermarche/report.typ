@@ -36,19 +36,8 @@ Ce rapport présente l'implémentation d'une simulation de supermarché utilisan
 
 == Contexte du projet
 
-Dans le cadre du TP5 de Conception et Systèmes d'Exploitation, nous devons implémenter une simulation réaliste d'un supermarché où plusieurs clients effectuent leurs courses simultanément. Cette simulation met en œuvre les concepts fondamentaux de la programmation concurrente :
-
-- *Threads* : Chaque client et employé est un thread indépendant
-- *Ressources partagées* : Chariots, rayons et tapis de caisse
-- *Synchronisation* : Coordination entre les différents acteurs
-- *Exclusion mutuelle* : Protection des sections critiques
-
-== Objectifs pédagogiques
-
-+ Comprendre le fonctionnement des threads en Java
-+ Maîtriser les mécanismes de synchronisation (`synchronized`, `wait()`, `notify()`)
-+ Identifier et résoudre les problèmes de concurrence (deadlocks, race conditions)
-+ Implémenter le pattern producteur-consommateur
+Dans le cadre du TP5 de Conception et Systèmes d'Exploitation, nous devons implémenter une simulation réaliste d'un supermarché où plusieurs clients effectuent leurs courses simultanément. Nous utilisons les concepts vu en cours 
+de threads, synchronisation et le pattern producteur-consommateur.
 
 = Architecture du système
 
@@ -106,20 +95,6 @@ Chaque rayon contient un seul type de produit avec une capacité maximale. C'est
 
 Le pool de chariots représente une ressource limitée classique. Les clients doivent attendre si tous les chariots sont utilisés.
 
-*Mécanisme de synchronisation :*
-```java
-public synchronized void prendreChariot(int clientId) {
-    while (currentNbChariots <= 0) {
-        wait(); // Attente passive
-    }
-    currentNbChariots--;
-}
-
-public synchronized void rendreChariot(int clientId) {
-    currentNbChariots++;
-    notifyAll(); // Réveille les clients en attente
-}
-```
 
 === Tapis - Le buffer borné (Pattern Producteur-Consommateur)
 
@@ -150,10 +125,6 @@ L'employé de caisse est un thread qui tourne en boucle et consomme les articles
 + Si sentinel (`-1`) détecté : signale la fin du passage en caisse
 + Répète jusqu'à interruption
 
-*Statistiques collectées :*
-- `totalArticlesScanned` : Total d'articles scannés
-- `currentClientArticles` : Articles du client en cours
-
 === EmpRayon - Le réapprovisionneur
 
 L'employé de rayon maintient les rayons approvisionnés en effectuant des allers-retours avec l'entrepôt.
@@ -170,7 +141,7 @@ L'employé de rayon maintient les rayons approvisionnés en effectuant des aller
 
 = Mécanismes de synchronisation
 
-== Sémaphores et Moniteurs
+== Moniteurs
 
 === Moniteur Java (synchronized)
 
@@ -182,7 +153,7 @@ public synchronized void methode() {
 }
 ```
 
-=== Gestion des chariots - Sémaphore de comptage
+=== Gestion des chariots - variable de comptage
 
 Les chariots fonctionnent comme un *sémaphore de comptage* :
 
@@ -284,8 +255,6 @@ while (currentNbChariots <= 0) {
     wait(); // Attente passive - libère le CPU
 }
 ```
-
-*Note :* L'utilisation de `while` au lieu de `if` est cruciale pour gérer les *spurious wakeups* (réveils intempestifs).
 
 === Attente de fin de passage en caisse
 
@@ -424,43 +393,43 @@ if (amount <= currentAmountProducts) { // Thread 1 vérifie: OK
 
 = Exécution et résultats
 
-
 == Exemple d'exécution
 
 ```
 ============================================================
         SIMULATION SUPERMARCHE DEMARREE
+Paramètres : 5 clients, 4 rayons, 3 chariots, tapis de 10 articles max
 ============================================================
 [EmpRayon] Commence son service
 [EmpCaisse] Pret a servir les clients
+[Client-1] Liste de courses: {BEURRE=1, SUCRE=3, FARINE=1, LAIT=5}
+[Client-2] Liste de courses: {BEURRE=4, SUCRE=4, FARINE=4, LAIT=1}
 [Client-1] Entre dans le supermarche
-[Client-1] Liste de courses: {BEURRE=3, LAIT=2}
-[Chariots] Client-1 prend un chariot (5/6 dispo)
-[Client-1] Cherche 3x BEURRE
-[Rayon BEURRE] Client-1 prend 3 (reste: 2/5)
-[Client-1] A pris 3x BEURRE | Panier: {BEURRE=3}
+[Client-3] Liste de courses: {SUCRE=1, LAIT=2}
 [Client-2] Entre dans le supermarche
-[Client-2] Liste de courses: {FARINE=4, SUCRE=1}
-[Chariots] Client-2 prend un chariot (4/6 dispo)
-[Client-1] Cherche 2x LAIT
-[Rayon LAIT] Client-1 prend 2 (reste: 3/5)
-[Client-1] A pris 2x LAIT | Panier: {BEURRE=3, LAIT=2}
-[Client-1] Se dirige vers la caisse avec 5 articles
-[Tapis] Client-1 depose 5 articles
-[EmpCaisse] Scanne: BEURRE (article #1)
-[EmpCaisse] Scanne: BEURRE (article #2)
-[EmpCaisse] Scanne: BEURRE (article #3)
-[EmpCaisse] Scanne: LAIT (article #4)
-[EmpCaisse] Scanne: LAIT (article #5)
-[EmpCaisse] Fin client (Client-1) - 5 articles scannes
-[Tapis] Client-1 a termine son passage en caisse
-[Client-1] Paiement termine!
-[Chariots] Client-1 rend son chariot (5/6 dispo)
-[Client-1] Quitte le supermarche. Achats: {BEURRE=3, LAIT=2}
-[EmpRayon] Va chercher des produits a l'entrepot
-[EmpRayon] Charge: {BEURRE=5, FARINE=5, LAIT=5, SUCRE=5}
-[Rayon BEURRE] Reapprovisionne +3 (stock: 5/5)
+[Chariots] Client-1 prend un chariot (2/3 dispo)
+[Chariots] Client-5 prend un chariot (1/3 dispo)
+[Chariots] Client-4 prend un chariot (0/3 dispo)
+[Chariots] Client-3 attend un chariot... (0/3 dispo)
+[Chariots] Client-2 attend un chariot... (0/3 dispo)
+[Rayon BEURRE] Client-1 prend 1 (reste: 4/5)
+[Rayon BEURRE] Client-4 prend 3 (reste: 1/5)
+[Rayon BEURRE] Client-5 prend 1 (reste: 0/5)
 ...
+[Client-5] Se dirige vers la caisse avec 4 articles
+[Tapis] Client-5 depose 4 articles
+[EmpCaisse] Scanne: BEURRE (article #1)
+[EmpCaisse] Scanne: SUCRE (article #2)
+[EmpCaisse] Scanne: FARINE (article #3)
+[EmpCaisse] Scanne: FARINE (article #4)
+[Tapis] Client-5 a termine son passage en caisse
+[Client-5] Paiement termine!
+[EmpCaisse] Fin client (Client-1) - 4 articles scannes
+[Chariots] Client-5 rend son chariot (1/3 dispo)
+[Chariots] Client-3 prend un chariot (0/3 dispo)
+[Client-5] Quitte le supermarche. Achats: {BEURRE=1, SUCRE=1, FARINE=2}
+...
+[EmpCaisse] Termine. Total articles scannes: 42
 ============================================================
         SIMULATION TERMINEE
 ============================================================
@@ -468,28 +437,50 @@ if (amount <= currentAmountProducts) { // Thread 1 vérifie: OK
 
 == Analyse des logs
 
-Les logs montrent plusieurs comportements intéressants :
+Les logs montrent plusieurs comportements intéressants avec les paramètres choisis :
 
-+ *Concurrence des clients* : Plusieurs clients font leurs courses simultanément
-+ *Réapprovisionnement dynamique* : L'employé de rayon réapprovisionne quand les stocks baissent
++ *Concurrence des chariots* : Avec seulement 3 chariots pour 5 clients, les Client-3 et Client-2 doivent attendre qu'un chariot se libère
++ *Réapprovisionnement dynamique* : L'employé de rayon effectue plusieurs allers-retours à l'entrepôt pour maintenir les stocks
++ *Tapis saturé* : Avec une limite de 10 articles, les gros paniers (Client-4 avec 12 articles) doivent attendre que la caisse libère de l'espace
 + *Synchronisation à la caisse* : Les clients passent un par un grâce au mécanisme de sentinel
-+ *Gestion des chariots* : Les clients attendent si nécessaire
 
 == Scénarios observés
 
-*Scénario 1 : Attente de chariot*
+*Scénario 1 : Attente de chariot (ressource limitée)*
 ```
-[Chariots] Client-7 attend un chariot... (0/6 dispo)
-[Chariots] Client-3 rend son chariot (1/6 dispo)
-[Chariots] Client-7 prend un chariot (0/6 dispo)
+[Chariots] Client-4 prend un chariot (0/3 dispo)
+[Chariots] Client-3 attend un chariot... (0/3 dispo)
+[Chariots] Client-2 attend un chariot... (0/3 dispo)
+...
+[Chariots] Client-5 rend son chariot (1/3 dispo)
+[Chariots] Client-3 prend un chariot (0/3 dispo)
 ```
 
 *Scénario 2 : Attente de réapprovisionnement*
 ```
 [Client-4] Attend reapprovisionnement de SUCRE...
-[Rayon SUCRE] Reapprovisionne +5 (stock: 5/5)
-[Rayon SUCRE] Client-4 prend 3 (reste: 2/5)
+[Rayon SUCRE] Reapprovisionne +4 (stock: 5/5)
+[Rayon SUCRE] Client-4 prend 4 (reste: 1/5)
 ```
+
+*Scénario 3 : Tapis plein (buffer borné)*
+```
+[Tapis] Plein! Client-4 attend...
+[EmpCaisse] Scanne: LAIT (article #2)
+[Tapis] Plein! Client-4 attend...
+[EmpCaisse] Scanne: LAIT (article #3)
+```
+
+== Statistiques de l'exécution
+
+- *Total articles scannés* : 42 articles
+- *Clients servis* : 5 clients avec succès
+- *Paniers* :
+  - Client-1 : 10 articles (BEURRE=1, SUCRE=3, FARINE=1, LAIT=5)
+  - Client-2 : 13 articles (BEURRE=4, SUCRE=4, FARINE=4, LAIT=1)
+  - Client-3 : 3 articles (SUCRE=1, LAIT=2)
+  - Client-4 : 12 articles (BEURRE=3, SUCRE=4, FARINE=2, LAIT=3)
+  - Client-5 : 4 articles (BEURRE=1, SUCRE=1, FARINE=2)
 
 = Conclusion
 
