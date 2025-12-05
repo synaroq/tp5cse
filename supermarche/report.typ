@@ -65,22 +65,6 @@ Le système simule un supermarché avec les éléments suivants :
 
 == Les entités principales
 
-#heading(level: 3, numbering: none)[Liste des entités]
-
-#table(
-  columns: (1fr, 2fr, 1fr),
-  inset: 10pt,
-  align: horizon,
-  [*Entité*], [*Description*], [*Type*],
-  [Client], [Acteur principal effectuant ses courses], [Thread],
-  [Rayon], [Étagère contenant un type de produit], [Ressource partagée],
-  [Chariots], [Pool de chariots disponibles], [Ressource limitée],
-  [Tapis], [Buffer circulaire de la caisse], [Buffer borné],
-  [EmpCaisse], [Employé scannant les articles], [Thread],
-  [EmpRayon], [Employé réapprovisionnant les rayons], [Thread],
-  [Entrepot], [Source illimitée de produits], [Ressource],
-  [ProductEnum], [Énumération des types de produits], [Enum],
-)
 
 === Client - L'acteur principal
 
