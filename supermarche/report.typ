@@ -440,18 +440,6 @@ if (amount <= currentAmountProducts) { // Thread 1 vérifie: OK
 
 = Exécution et résultats
 
-== Paramètres de simulation
-
-#table(
-  columns: (1fr, 1fr),
-  inset: 10pt,
-  [*Paramètre*], [*Valeur*],
-  [Nombre de clients], [5],
-  [Nombre de chariots], [6],
-  [Capacité des rayons], [5 produits],
-  [Capacité du tapis], [10 articles],
-  [Types de produits], [BEURRE, FARINE, LAIT, SUCRE],
-)
 
 == Exemple d'exécution
 
@@ -541,11 +529,3 @@ Cette implémentation démontre les concepts clés de la programmation concurren
 == Bilan
 
 Ce TP nous a permis de comprendre en profondeur les mécanismes de synchronisation en Java et les problèmes classiques de la programmation concurrente. La simulation du supermarché est un excellent cas d'étude car elle combine plusieurs patterns (producteur-consommateur, pool de ressources, exclusion mutuelle) dans un contexte réaliste et compréhensible.
-
-#pagebreak()
-
-= Annexes
-
-== Code source des classes principales
-
-// Le code source peut être inclus ici si nécessaire
