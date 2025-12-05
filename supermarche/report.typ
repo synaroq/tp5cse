@@ -3,20 +3,28 @@
 #set text(font: "New Computer Modern", size: 11pt, lang: "fr")
 #set heading(numbering: "1.1")
 
-#align(center)[
-  #text(size: 20pt, weight: "bold")[Rapport TP5 - Simulation Supermarché]
+#page[
+  #align(center + horizon)[
+    #box(height: 3cm)[
+      #image("Istic.png", height: 100%)
+    ]
 
-  #v(0.5cm)
-  #text(size: 14pt)[Conception et Systèmes d'Exploitation]
+    #v(1cm)
+    #text(size: 24pt, weight: "bold")[Rapport TP5 - Simulation Supermarché]
 
-  #v(0.5cm)
-  *Auteurs:* Oscar & Baptiste \
-  M1 ISTIC \
-  5 décembre 2025
+    #v(0.5cm)
+    #text(size: 16pt)[Conception et Systèmes d'Exploitation]
+
+    #v(1.5cm)
+    #text(size: 14pt)[
+      *Auteurs:* Oscar & Baptiste \
+      #v(0.3cm)
+      M1 ISTIC \
+      #v(0.3cm)
+      5 décembre 2025
+    ]
+  ]
 ]
-
-#v(1cm)
-#pagebreak()
 
 #outline(title: "Table des matières", indent: auto)
 
@@ -53,27 +61,7 @@ Le système simule un supermarché avec les éléments suivants :
 - Une *caisse* avec un tapis roulant (buffer)
 - Des *employés* (caissier et employé de rayon)
 
-== Diagramme de classes
 
-#figure(
-  ```
-  ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-  │   Client    │────▶│   Rayon     │◀────│  EmpRayon   │
-  │  (Thread)   │     │ (Ressource) │     │  (Thread)   │
-  └─────────────┘     └─────────────┘     └─────────────┘
-         │                                       │
-         │            ┌─────────────┐            │
-         ├───────────▶│  Chariots   │            │
-         │            │   (Pool)    │            │
-         │            └─────────────┘            │
-         │                                       │
-         │            ┌─────────────┐     ┌─────────────┐
-         └───────────▶│   Tapis     │◀────│  EmpCaisse  │
-                      │  (Buffer)   │     │  (Thread)   │
-                      └─────────────┘     └─────────────┘
-  ```,
-  caption: [Diagramme des interactions entre entités],
-)
 
 == Les entités principales
 
