@@ -95,4 +95,8 @@ public class Tapis {
         checkoutComplete = false;
         log("Client-" + clientId + " a termine son passage en caisse");
     }
+
+    public int getMaxArticles() {
+        return max_articles;
+    }
 }

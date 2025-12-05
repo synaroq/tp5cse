@@ -1,0 +1,183 @@
+============================================================
+        SIMULATION SUPERMARCHE DEMARREE
+Paramètres : 5 clients, 4 rayons, 3 chariots, tapis de 10 articles max
+============================================================
+[EmpRayon] Commence son service
+[EmpCaisse] Pret a servir les clients
+[Client-1] Liste de courses: {BEURRE=1, SUCRE=3, FARINE=1, LAIT=5}
+[Client-2] Liste de courses: {BEURRE=4, SUCRE=4, FARINE=4, LAIT=1}
+[Client-1] Entre dans le supermarche
+[Client-3] Liste de courses: {SUCRE=1, LAIT=2}
+[Client-2] Entre dans le supermarche
+[Client-4] Liste de courses: {BEURRE=3, SUCRE=4, FARINE=2, LAIT=3}
+[Client-3] Entre dans le supermarche
+[Client-5] Liste de courses: {BEURRE=1, SUCRE=1, FARINE=2}
+[Client-4] Entre dans le supermarche
+[Client-5] Entre dans le supermarche
+[Chariots] Client-1 prend un chariot (2/3 dispo)
+[Chariots] Client-5 prend un chariot (1/3 dispo)
+[Client-1] Cherche 1x BEURRE
+[Client-5] Cherche 1x BEURRE
+[Chariots] Client-4 prend un chariot (0/3 dispo)
+[Client-4] Cherche 3x BEURRE
+[Chariots] Client-3 attend un chariot... (0/3 dispo)
+[Chariots] Client-2 attend un chariot... (0/3 dispo)
+[Rayon BEURRE] Client-1 prend 1 (reste: 4/5)
+[Rayon BEURRE] Client-4 prend 3 (reste: 1/5)
+[Rayon BEURRE] Client-5 prend 1 (reste: 0/5)
+[Client-5] A pris 1x BEURRE | Panier: {BEURRE=1}
+[Client-1] A pris 1x BEURRE | Panier: {BEURRE=1}
+[Client-4] A pris 3x BEURRE | Panier: {BEURRE=3}
+[Client-5] Cherche 1x SUCRE
+[Client-1] Cherche 3x SUCRE
+[Rayon SUCRE] Client-1 prend 3 (reste: 2/5)
+[Client-4] Cherche 4x SUCRE
+[Rayon SUCRE] Client-5 prend 1 (reste: 1/5)
+[Client-1] A pris 3x SUCRE | Panier: {BEURRE=1, SUCRE=3}
+[Client-5] A pris 1x SUCRE | Panier: {BEURRE=1, SUCRE=1}
+[EmpRayon] Va chercher des produits a l'entrepot
+[EmpRayon] Charge: {BEURRE=5, SUCRE=5, FARINE=5, LAIT=5}
+[Client-1] Cherche 1x FARINE
+[Client-5] Cherche 2x FARINE
+[Rayon FARINE] Client-5 prend 2 (reste: 3/5)
+[Client-5] A pris 2x FARINE | Panier: {BEURRE=1, SUCRE=1, FARINE=2}
+[Rayon FARINE] Client-1 prend 1 (reste: 2/5)
+[Client-1] A pris 1x FARINE | Panier: {BEURRE=1, SUCRE=3, FARINE=1}
+[Rayon BEURRE] Reapprovisionne +5 (stock: 5/5)
+[Rayon FARINE] Reapprovisionne +3 (stock: 5/5)
+[Client-5] Se dirige vers la caisse avec 4 articles
+[Tapis] Client-5 depose 4 articles
+[EmpCaisse] Scanne: BEURRE (article #1)
+[Client-1] Cherche 5x LAIT
+[Rayon LAIT] Client-1 prend 5 (reste: 0/5)
+[Client-1] A pris 5x LAIT | Panier: {BEURRE=1, SUCRE=3, FARINE=1, LAIT=5}
+[EmpCaisse] Scanne: SUCRE (article #2)
+[Rayon LAIT] Reapprovisionne +5 (stock: 5/5)
+[EmpCaisse] Scanne: FARINE (article #3)
+[Client-4] Attend reapprovisionnement de SUCRE...
+[Client-1] Se dirige vers la caisse avec 10 articles
+[EmpCaisse] Scanne: FARINE (article #4)
+[Tapis] Client-1 depose 10 articles
+[Rayon SUCRE] Reapprovisionne +4 (stock: 5/5)
+[Rayon SUCRE] Client-4 prend 4 (reste: 1/5)
+[Client-4] A pris 4x SUCRE | Panier: {BEURRE=3, SUCRE=4}
+[Tapis] Client-5 a termine son passage en caisse
+[Client-5] Paiement termine!
+[EmpCaisse] Fin client (Client-1) - 4 articles scannes
+[EmpCaisse] Scanne: BEURRE (article #1)
+[Chariots] Client-5 rend son chariot (1/3 dispo)
+[Chariots] Client-3 prend un chariot (0/3 dispo)
+[Client-5] Quitte le supermarche. Achats: {BEURRE=1, SUCRE=1, FARINE=2}
+[Client-3] Cherche 1x SUCRE
+[Chariots] Client-2 attend un chariot... (0/3 dispo)
+[Rayon SUCRE] Client-3 prend 1 (reste: 0/5)
+[Client-3] A pris 1x SUCRE | Panier: {SUCRE=1}
+[EmpCaisse] Scanne: SUCRE (article #2)
+[EmpCaisse] Scanne: SUCRE (article #3)
+[Client-3] Cherche 2x LAIT
+[Rayon LAIT] Client-3 prend 2 (reste: 3/5)
+[Client-3] A pris 2x LAIT | Panier: {SUCRE=1, LAIT=2}
+[Client-4] Cherche 2x FARINE
+[Rayon FARINE] Client-4 prend 2 (reste: 3/5)
+[Client-4] A pris 2x FARINE | Panier: {BEURRE=3, SUCRE=4, FARINE=2}
+[EmpCaisse] Scanne: SUCRE (article #4)
+[EmpCaisse] Scanne: FARINE (article #5)
+[EmpCaisse] Scanne: LAIT (article #6)
+[Client-3] Se dirige vers la caisse avec 3 articles
+[Tapis] Client-3 depose 3 articles
+[Client-4] Cherche 3x LAIT
+[Rayon LAIT] Client-4 prend 3 (reste: 0/5)
+[Client-4] A pris 3x LAIT | Panier: {BEURRE=3, SUCRE=4, FARINE=2, LAIT=3}
+[EmpCaisse] Scanne: LAIT (article #7)
+[EmpRayon] Va chercher des produits a l'entrepot
+[EmpRayon] Charge: {BEURRE=5, SUCRE=5, FARINE=5, LAIT=5}
+[EmpCaisse] Scanne: LAIT (article #8)
+[EmpCaisse] Scanne: LAIT (article #9)
+[Client-4] Se dirige vers la caisse avec 12 articles
+[Tapis] Client-4 depose 12 articles
+[EmpCaisse] Scanne: LAIT (article #10)
+[Tapis] Client-3 a termine son passage en caisse
+[Client-3] Paiement termine!
+[Chariots] Client-3 rend son chariot (1/3 dispo)
+[EmpCaisse] Fin client (Client-4) - 10 articles scannes
+[Chariots] Client-2 prend un chariot (0/3 dispo)
+[Client-3] Quitte le supermarche. Achats: {SUCRE=1, LAIT=2}
+[EmpCaisse] Scanne: SUCRE (article #1)
+[Client-2] Cherche 4x BEURRE
+[Rayon BEURRE] Client-2 prend 4 (reste: 1/5)
+[Client-2] A pris 4x BEURRE | Panier: {BEURRE=4}
+[Rayon FARINE] Reapprovisionne +2 (stock: 5/5)
+[Tapis] Plein! Client-4 attend...
+[EmpCaisse] Scanne: LAIT (article #2)
+[Tapis] Plein! Client-4 attend...
+[EmpCaisse] Scanne: LAIT (article #3)
+[Tapis] Plein! Client-4 attend...
+[Rayon LAIT] Reapprovisionne +5 (stock: 5/5)
+[EmpCaisse] Fin client (Client-4) - 3 articles scannes
+[Client-2] Cherche 4x SUCRE
+[Tapis] Client-1 a termine son passage en caisse
+[Client-1] Paiement termine!
+[EmpCaisse] Scanne: BEURRE (article #1)
+[Chariots] Client-1 rend son chariot (1/3 dispo)
+[Client-1] Quitte le supermarche. Achats: {BEURRE=1, SUCRE=3, FARINE=1, LAIT=5}
+[Tapis] Plein! Client-4 attend...
+[EmpCaisse] Scanne: BEURRE (article #2)
+[Tapis] Plein! Client-4 attend...
+[Rayon SUCRE] Reapprovisionne +5 (stock: 5/5)
+[Rayon SUCRE] Client-2 prend 4 (reste: 1/5)
+[Client-2] A pris 4x SUCRE | Panier: {BEURRE=4, SUCRE=4}
+[EmpCaisse] Scanne: BEURRE (article #3)
+[EmpCaisse] Scanne: SUCRE (article #4)
+[EmpCaisse] Scanne: SUCRE (article #5)
+[Client-2] Cherche 4x FARINE
+[Rayon FARINE] Client-2 prend 4 (reste: 1/5)
+[Client-2] A pris 4x FARINE | Panier: {BEURRE=4, SUCRE=4, FARINE=4}
+[EmpCaisse] Scanne: SUCRE (article #6)
+[EmpCaisse] Scanne: SUCRE (article #7)
+[EmpCaisse] Scanne: FARINE (article #8)
+[Client-2] Cherche 1x LAIT
+[Rayon LAIT] Client-2 prend 1 (reste: 4/5)
+[Client-2] A pris 1x LAIT | Panier: {BEURRE=4, SUCRE=4, FARINE=4, LAIT=1}
+[EmpCaisse] Scanne: FARINE (article #9)
+[EmpRayon] Va chercher des produits a l'entrepot
+[EmpRayon] Charge: {BEURRE=5, SUCRE=5, FARINE=5, LAIT=5}
+[EmpCaisse] Scanne: LAIT (article #10)
+[EmpCaisse] Scanne: LAIT (article #11)
+[Rayon BEURRE] Reapprovisionne +4 (stock: 5/5)
+[Client-2] Se dirige vers la caisse avec 13 articles
+[Tapis] Client-2 depose 13 articles
+[EmpCaisse] Scanne: LAIT (article #12)
+[EmpCaisse] Fin client (Client-2) - 12 articles scannes
+[Rayon FARINE] Reapprovisionne +4 (stock: 5/5)
+[Tapis] Client-4 a termine son passage en caisse
+[Client-4] Paiement termine!
+[EmpCaisse] Scanne: BEURRE (article #1)
+[Chariots] Client-4 rend son chariot (2/3 dispo)
+[Client-4] Quitte le supermarche. Achats: {BEURRE=3, SUCRE=4, FARINE=2, LAIT=3}
+[EmpCaisse] Scanne: BEURRE (article #2)
+[Rayon LAIT] Reapprovisionne +1 (stock: 5/5)
+[Tapis] Plein! Client-2 attend...
+[EmpCaisse] Scanne: BEURRE (article #3)
+[Tapis] Plein! Client-2 attend...
+[EmpCaisse] Scanne: BEURRE (article #4)
+[Rayon SUCRE] Reapprovisionne +4 (stock: 5/5)
+[EmpCaisse] Scanne: SUCRE (article #5)
+[EmpCaisse] Scanne: SUCRE (article #6)
+[EmpCaisse] Scanne: SUCRE (article #7)
+[EmpCaisse] Scanne: SUCRE (article #8)
+[EmpCaisse] Scanne: FARINE (article #9)
+[EmpCaisse] Scanne: FARINE (article #10)
+[EmpCaisse] Scanne: FARINE (article #11)
+[EmpRayon] Va chercher des produits a l'entrepot
+[EmpRayon] Charge: {BEURRE=5, SUCRE=5, FARINE=5, LAIT=5}
+[EmpCaisse] Scanne: FARINE (article #12)
+[EmpCaisse] Scanne: LAIT (article #13)
+[EmpCaisse] Fin client (Client-2) - 13 articles scannes
+[Tapis] Client-2 a termine son passage en caisse
+[Client-2] Paiement termine!
+[Chariots] Client-2 rend son chariot (3/3 dispo)
+[Client-2] Quitte le supermarche. Achats: {BEURRE=4, SUCRE=4, FARINE=4, LAIT=1}
+[EmpCaisse] Termine. Total articles scannes: 42
+============================================================
+        SIMULATION TERMINEE
+============================================================

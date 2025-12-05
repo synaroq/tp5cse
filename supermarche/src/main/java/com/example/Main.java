@@ -8,7 +8,9 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 public class Main {
-    private Chariots chariots = new Chariots(6);
+    private Chariots chariots = new Chariots(3);
+
+    private static final int CLIENT_AMOUNT = 5;
 
     private List<Rayon> rayons = new ArrayList<>() {
         {
@@ -19,7 +21,7 @@ public class Main {
         }
     };
 
-    private Tapis tapis;
+    private Tapis tapis = new Tapis(10);
     private List<Client> clients;
     private EmpCaisse employeCaisse;
     private Entrepot entrepot;
@@ -36,6 +38,10 @@ public class Main {
     public void runSimulation() {
         System.out.println("=".repeat(60));
         System.out.println("        SIMULATION SUPERMARCHE DEMARREE");
+        System.out.println("Paramètres : " + CLIENT_AMOUNT + " clients, "
+                + rayons.size() + " rayons, "
+                + 3 + " chariots, "
+                + "tapis de " + tapis.getMaxArticles() + " articles max");
         System.out.println("=".repeat(60));
 
         entrepot = new Entrepot(availableProducts);
@@ -43,13 +49,13 @@ public class Main {
         employeRayon = new EmpRayon(rayons, entrepot);
         employeRayon.start();
 
-        tapis = new Tapis(10);
+     
 
         employeCaisse = new EmpCaisse(tapis);
         employeCaisse.start();
 
         clients = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < CLIENT_AMOUNT; i++) {
             Client client = new Client(new Entrepot(availableProducts), rayons, chariots, tapis);
             clients.add(client);
             client.start();
