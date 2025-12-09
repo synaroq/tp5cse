@@ -2,6 +2,22 @@ package com.example;
 
 import java.util.logging.Logger;
 
+/**
+ * Represents a product shelf in the supermarket.
+ * <p>
+ * Each shelf contains a single product type with a maximum capacity.
+ * It serves as a shared resource between clients (consumers) who pick products
+ * and the shelf employee (producer) who restocks. All operations are
+ * synchronized
+ * to prevent race conditions.
+ * </p>
+ *
+ * @author Oscar
+ * @author Baptiste
+ * @see EmpRayon
+ * @see Client
+ * @see ProductEnum
+ */
 public class Rayon {
     private ProductEnum product;
     private int nbProductMax;

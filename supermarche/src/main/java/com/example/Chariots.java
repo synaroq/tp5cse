@@ -2,6 +2,18 @@ package com.example;
 
 import java.util.logging.Logger;
 
+/**
+ * Manages a limited pool of shopping carts as a shared resource.
+ * <p>
+ * Implements a counting semaphore pattern where clients must wait if no carts
+ * are available. Thread-safe operations ensure proper synchronization when
+ * acquiring and releasing carts.
+ * </p>
+ *
+ * @author Oscar
+ * @author Baptiste
+ * @see Client
+ */
 public class Chariots {
     private int nbChariotsMax;
     private int currentNbChariots;

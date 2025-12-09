@@ -5,6 +5,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+/**
+ * Represents the shelf restocking employee.
+ * <p>
+ * This thread periodically checks shelf levels and restocks them by fetching
+ * products from the warehouse. It acts as a producer in the shelf resource
+ * management, ensuring products remain available for customers.
+ * </p>
+ *
+ * @author Oscar
+ * @author Baptiste
+ * @version 1.0
+ * @see Rayon
+ * @see Entrepot
+ */
 public class EmpRayon extends Thread {
 
     private Map<ProductEnum, Integer> carriedProducts = new HashMap<>();

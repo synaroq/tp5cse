@@ -2,6 +2,18 @@ package com.example;
 
 import java.util.logging.Logger;
 
+/**
+ * Represents the cashier employee at the checkout counter.
+ * <p>
+ * This thread continuously consumes items from the conveyor belt (Tapis),
+ * simulating the scanning process. It detects client transaction boundaries
+ * using sentinel values and maintains statistics on scanned items.
+ * </p>
+ *
+ * @author Oscar
+ * @author Baptiste
+ * @see Tapis
+ */
 public class EmpCaisse extends Thread {
     private Tapis tapis;
     private int totalArticlesScanned = 0;

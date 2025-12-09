@@ -1,5 +1,16 @@
 package com.example;
 
+/**
+ * Enumeration of available product types in the supermarket.
+ * <p>
+ * Each product has a unique identifier used for serialization on the
+ * conveyor belt. Provides utility methods for ID-based lookup and
+ * display names.
+ * </p>
+ *
+ * @author Oscar
+ * @author Baptiste
+ */
 public enum ProductEnum {
     SUCRE(0),
     FARINE(1),

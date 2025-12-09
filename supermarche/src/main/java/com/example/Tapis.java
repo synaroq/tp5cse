@@ -3,6 +3,22 @@ package com.example;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * Implements a bounded buffer for the checkout conveyor belt.
+ * <p>
+ * This class demonstrates the classic producer-consumer pattern using a
+ * circular
+ * buffer. Clients (producers) deposit their items while the cashier (consumer)
+ * scans and removes them. A sentinel value (-1) signals the end of a client's
+ * transaction.
+ * </p>
+ *
+ * @author Oscar
+ * @author Baptiste
+ * @version 1.0
+ * @see Client
+ * @see EmpCaisse
+ */
 public class Tapis {
     private final Integer[] tapis;
     private final int max_articles;

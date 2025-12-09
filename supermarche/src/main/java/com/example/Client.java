@@ -6,6 +6,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+/**
+ * Represents a customer in the supermarket simulation.
+ * <p>
+ * Each client is an independent thread that simulates a complete shopping
+ * experience:
+ * entering the store, acquiring a cart, collecting products from shelves,
+ * proceeding to checkout, and exiting. Clients interact with shared resources
+ * requiring proper synchronization.
+ * </p>
+ *
+ * @author Oscar
+ * @author Baptiste
+ * @see Chariots
+ * @see Rayon
+ * @see Tapis
+ */
 public class Client extends Thread {
     private static int clientCounter = 0;
     private final int clientId;

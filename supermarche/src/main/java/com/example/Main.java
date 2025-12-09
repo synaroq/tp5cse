@@ -7,6 +7,18 @@ import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
+/**
+ * Main entry point for the supermarket simulation.
+ * <p>
+ * This class orchestrates the entire simulation by initializing all shared resources
+ * (carts, shelves, checkout conveyor) and spawning the necessary threads for clients
+ * and employees. It demonstrates concurrent programming patterns including
+ * producer-consumer and resource pooling.
+ * </p>
+ *
+ * @author Oscar
+ * @author Baptiste
+ */
 public class Main {
     private Chariots chariots = new Chariots(3);
 
