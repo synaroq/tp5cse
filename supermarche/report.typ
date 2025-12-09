@@ -17,11 +17,11 @@
 
     #v(1.5cm)
     #text(size: 14pt)[
-      *Auteurs:* Oscar & Baptiste \
+      *Auteurs:* Oscar ISOREZ & Baptiste TUAUX\
       #v(0.3cm)
       M1 ISTIC \
       #v(0.3cm)
-      5 décembre 2025
+      9 décembre 2025
     ]
   ]
 ]
@@ -36,7 +36,7 @@ Ce rapport présente l'implémentation d'une simulation de supermarché utilisan
 
 == Contexte du projet
 
-Dans le cadre du TP5 de Conception et Systèmes d'Exploitation, nous devons implémenter une simulation réaliste d'un supermarché où plusieurs clients effectuent leurs courses simultanément. Nous utilisons les concepts vu en cours 
+Dans le cadre du TP5 de Conception et Systèmes d'Exploitation, nous devons implémenter une simulation réaliste d'un supermarché où plusieurs clients effectuent leurs courses simultanément. Nous utilisons les concepts vu en cours
 de threads, synchronisation et le pattern producteur-consommateur.
 
 = Architecture du système
@@ -143,15 +143,7 @@ L'employé de rayon maintient les rayons approvisionnés en effectuant des aller
 
 == Moniteurs
 
-=== Moniteur Java (synchronized)
 
-Java utilise le concept de *moniteur* avec le mot-clé `synchronized`. Chaque objet possède un verrou intrinsèque (intrinsic lock) qui garantit l'exclusion mutuelle.
-
-```java
-public synchronized void methode() {
-    // Section critique - un seul thread à la fois
-}
-```
 
 === Gestion des chariots - variable de comptage
 
